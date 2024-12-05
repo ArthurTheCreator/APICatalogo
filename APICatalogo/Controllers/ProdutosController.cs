@@ -43,5 +43,19 @@ namespace APICatalogo.Controllers
             return produto;
 
         }
+
+        //Retornando produto por Id da categoria
+        //[HttpGet("{idCat:int}")]
+        //public ActionResult<IEnumerable<Produto>> Get(decimal idCat)
+        //{
+        //    var produtocat = _context.Produtos.Where(p => p.CategoriaId == idCat).ToList();
+
+        //    if (produtocat is null)
+        //    {
+        //        return NotFound(">> Produtos dessa categoria não foram encontrados <<");
+        //    }
+        //    return produtocat;
+        //}
+
     }
 }
