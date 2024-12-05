@@ -1,8 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using APICatalogo.Context;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-
-[Route("[controller]")]
-[ApiController]
-public class ProdutosController
+namespace APICatalogo.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
+    public class ProdutosController : ControllerBase
+    {
+        private readonly AppDbContext _context; //Contexto com o banco de dados
+
+        public ProdutosController(AppDbContext context)
+        {
+            _context = context;
+        }
+    }
 }
