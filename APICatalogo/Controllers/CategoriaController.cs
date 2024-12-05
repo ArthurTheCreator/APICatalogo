@@ -7,5 +7,7 @@ namespace APICatalogo.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
+
+        
     }
 }
