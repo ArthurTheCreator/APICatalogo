@@ -29,7 +29,7 @@ namespace APICatalogo.Models
         public float Estoque { get; set; }
         public DateTime DataCadastro { get; set; }
 
-        [ForeignKey(nameof(CategoriaId))]
+      
         public int CategoriaId { get; set; }
         public Categoria? Categoria { get; set; } //Indicar que um produto está relacionado com categoria
     }
