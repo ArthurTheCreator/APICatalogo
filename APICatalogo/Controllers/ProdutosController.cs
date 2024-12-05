@@ -16,6 +16,8 @@ namespace APICatalogo.Controllers
             _context = context;
         }
 
+
+        //Retornando todos os produtos
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get() //Criando a lista de produtos para serem retornados
         {
@@ -25,6 +27,21 @@ namespace APICatalogo.Controllers
                 return NotFound(">> Produtos não encontrados <<");
             }
             return produtos;
+        }
+
+
+        //Retornando produto por Id
+        [HttpGet("{id:int}")]
+        public ActionResult<Produto> Get(int id)
+        {
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+
+            if (produto == null)
+            {
+                return NotFound(">> Produto Inexistente ou não Encontrado <<");
+            }
+            return produto;
+
         }
     }
 }
