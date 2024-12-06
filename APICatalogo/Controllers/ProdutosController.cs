@@ -16,13 +16,14 @@ namespace APICatalogo.Controllers
         {
             _context = context;
         }
-
+        
 
         //Retornando todos os produtos
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get() //Criando a lista de produtos para serem retornados
         {
             var produtos = _context.Produtos.ToList();
+            var categorias = _context.Categorias.ToList();
             if (produtos is null)
             {
                 return NotFound(">> Produtos não encontrados <<");
