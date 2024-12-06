@@ -33,7 +33,7 @@ namespace APICatalogo.Controllers
 
 
         //Retornando produto por Id
-        [HttpGet("{id:int}", Name="ObterProduto")]
+        [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
@@ -74,7 +74,7 @@ namespace APICatalogo.Controllers
                 new { id = produto.ProdutoId }, produto);
         }
 
-        [HttpPut("{id:int}")] //Altera
+        [HttpPut("{id:int:min(1)}")] //Altera
         public ActionResult Put(int id, Produto produto)
         {
             if(id != produto.ProdutoId)

@@ -32,7 +32,7 @@ namespace APICatalogo.Controllers
         }
 
         // Retornanndo com Id
-        [HttpGet("{id:int}", Name = "ObterCategoria")]
+        [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")] //Resttrições -> maior que zero
         public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
@@ -53,7 +53,7 @@ namespace APICatalogo.Controllers
         
 
         // Mostrar tudo por id
-        [HttpGet("produtos{id:int}")]
+        [HttpGet("produtos{id:int:min(1)}")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int id)
         {
             return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId == id).AsNoTracking().ToList();
@@ -87,7 +87,7 @@ namespace APICatalogo.Controllers
             return Ok(categoria);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int:min(1)}")]
         public ActionResult Delete(int id)
         {
             var categoriaDeletada = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);

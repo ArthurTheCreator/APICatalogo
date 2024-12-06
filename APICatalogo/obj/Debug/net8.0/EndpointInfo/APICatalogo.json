@@ -211,15 +211,14 @@
         }
       }
     },
-    "/Categorias/{idC}": {
+    "/Categorias/produtos{id}": {
       "get": {
         "tags": [
           "Categorias"
         ],
-        "operationId": "ObterProdutosDaCategoria",
         "parameters": [
           {
-            "name": "idC",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -236,7 +235,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Produto"
+                    "$ref": "#/components/schemas/Categoria"
                   }
                 }
               },
@@ -244,7 +243,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Produto"
+                    "$ref": "#/components/schemas/Categoria"
                   }
                 }
               },
@@ -252,7 +251,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Produto"
+                    "$ref": "#/components/schemas/Categoria"
                   }
                 }
               }
@@ -506,9 +505,6 @@
           "categoriaId": {
             "type": "integer",
             "format": "int32"
-          },
-          "categoria": {
-            "$ref": "#/components/schemas/Categoria"
           }
         },
         "additionalProperties": false
