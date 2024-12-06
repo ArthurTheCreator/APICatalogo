@@ -50,15 +50,7 @@ namespace APICatalogo.Controllers
         {
             return _context.Categorias.Include(p => p.Produtos).ToList();
         }
-        // Retornando todos os produtos da categoriao
-        //[HttpGet("{idC:int}", Name = "ObterProdutosDaCategoria")]
-        //public ActionResult<IEnumerable<Produto>> get(int idC)
-        //{
-        //    var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId.Equals(idC));
-        //    if (categoria is null)
-        //    {
-        //        return NotFound(" >> Categoria não Encontrada <<");
-        //    }
+        
 
         // Mostrar tudo por id
         [HttpGet("produtos{id:int}")]
@@ -66,30 +58,6 @@ namespace APICatalogo.Controllers
         {
             return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId == id).AsNoTracking().ToList();
         }
-
-        // Retornando todos os produtos da categoriao
-        //[HttpGet("Categoria e Produtos {idC:int}", Name = "ObterProdutosDaCategoria")]
-        //public ActionResult<IEnumerable<Produto>> get(int idC)
-        //{
-        //    var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == idC);
-        //    if (categoria is null)
-        //    {
-        //        return NotFound(" >> Categoria não Encontrada <<");
-        //    }
-
-        //    var produtosCategoria = _context.Categorias
-        //        .Include(c => c.Produtos)
-        //        .FirstOrDefault(c => c.CategoriaId == idC)?
-        //        .Produtos;
-
-        //    if (produtosCategoria is null || !produtosCategoria.Any())
-        //    {
-        //        return NotFound(" >> Nenhum produto encontrado nesta categoria <<");
-        //    }
-
-        //    return Ok(produtosCategoria);
-
-        //}
 
 
         // criando
