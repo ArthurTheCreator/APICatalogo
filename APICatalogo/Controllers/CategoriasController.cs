@@ -60,12 +60,12 @@ namespace APICatalogo.Controllers
         //        return NotFound(" >> Categoria não Encontrada <<");
         //    }
 
-        //    var categoriadeProdutos = _context.Categorias.Include(p => p.Produtos).ToList();
-        //    var produtosCategoria = categoriadeProdutos.FindAll(p => p.CategoriaId == idC).ToList();
-
-        //    return Ok(produtosCategoria);
-
-        //}
+        // Mostrar tudo por id
+        [HttpGet("produtos{id:int}")]
+        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int id)
+        {
+            return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId == id).AsNoTracking().ToList();
+        }
 
         // Retornando todos os produtos da categoriao
         //[HttpGet("Categoria e Produtos {idC:int}", Name = "ObterProdutosDaCategoria")]
