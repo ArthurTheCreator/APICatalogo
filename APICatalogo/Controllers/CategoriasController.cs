@@ -32,15 +32,104 @@ namespace APICatalogo.Controllers
         }
 
         // Retornanndo com Id
-        [HttpGet("{id:int}")]
-        public ActionResult Categoria Get(int id)
+        [HttpGet("{id:int}", Name = "ObterCategoria")]
+        public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
             if (categoria is null)
             {
                 return NotFound(" >> Categoria Não Encontrada <<");
             }
-            Ok(categoria);
+            return Ok(categoria);
+        }
+
+
+        // Mostrar tudo
+        [HttpGet("Categorias")]
+        public ActionResult<IEnumerable<Categoria>> GetCategiruasProdutos()
+        {
+            return _context.Categorias.Include(p => p.Produtos).ToList();
+        }
+        // Retornando todos os produtos da categoriao
+        //[HttpGet("{idC:int}", Name = "ObterProdutosDaCategoria")]
+        //public ActionResult<IEnumerable<Produto>> get(int idC)
+        //{
+        //    var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId.Equals(idC));
+        //    if (categoria is null)
+        //    {
+        //        return NotFound(" >> Categoria não Encontrada <<");
+        //    }
+
+        //    var categoriadeProdutos = _context.Categorias.Include(p => p.Produtos).ToList();
+        //    var produtosCategoria = categoriadeProdutos.FindAll(p => p.CategoriaId == idC).ToList();
+
+        //    return Ok(produtosCategoria);
+
+        //}
+
+        // Retornando todos os produtos da categoriao
+        //[HttpGet("Categoria e Produtos {idC:int}", Name = "ObterProdutosDaCategoria")]
+        //public ActionResult<IEnumerable<Produto>> get(int idC)
+        //{
+        //    var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == idC);
+        //    if (categoria is null)
+        //    {
+        //        return NotFound(" >> Categoria não Encontrada <<");
+        //    }
+
+        //    var produtosCategoria = _context.Categorias
+        //        .Include(c => c.Produtos)
+        //        .FirstOrDefault(c => c.CategoriaId == idC)?
+        //        .Produtos;
+
+        //    if (produtosCategoria is null || !produtosCategoria.Any())
+        //    {
+        //        return NotFound(" >> Nenhum produto encontrado nesta categoria <<");
+        //    }
+
+        //    return Ok(produtosCategoria);
+
+        //}
+
+
+        // criando
+        [HttpPost]
+        public ActionResult Post(Categoria categoria)
+        {
+            if (categoria is null)
+            {
+                return BadRequest("Categoria vazia");
+            }
+            _context.Add(categoria);
+            _context.SaveChanges();
+            return new CreatedAtRouteResult("ObterCategoria",
+                new { id = categoria.CategoriaId }, categoria);
+        }
+
+        [HttpPut]
+        public ActionResult Put(int id, Categoria categoria)
+        {
+            if (id != categoria.CategoriaId)
+            {
+                return BadRequest(" >> Categoria Não Encontrada <<");
+            }
+            _context.Entry(categoria).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(categoria);
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var categoriaDeletada = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+            if (categoriaDeletada is null)
+            {
+                return NotFound(" >> Categoria Não Encontrada <<");
+            }
+            _context.Remove(categoriaDeletada);
+            _context.SaveChanges();
+            return Ok(categoriaDeletada);
         }
     }
 }
