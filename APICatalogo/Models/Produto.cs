@@ -10,7 +10,7 @@ namespace APICatalogo.Models
         [Key]
         public int ProdutoId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O Nome é *OBRIGATÓRIOS*")]
         [StringLength(80)]
         public string Nome { get; set; }
 
@@ -19,14 +19,14 @@ namespace APICatalogo.Models
         public string Descricao { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(10,2)")]
+        [Range(0.01, 1000000000, ErrorMessage = "O preço do produto deve estar entre {1} e {2}")]
         public decimal Preco { get; set; }
 
         [Required]
         [StringLength (312)]
         public string ImagemUrl { get; set; }
 
-       
+        
         public float Estoque { get; set; }
         public DateTime DataCadastro { get; set; }
 

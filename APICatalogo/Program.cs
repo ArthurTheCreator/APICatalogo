@@ -1,4 +1,6 @@
 using APICatalogo.Context;
+using APICatalogo.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography.Xml;
@@ -25,8 +27,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 
-
-
+builder.Services.AddTransient<IMeuServico, MeuServico>();
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

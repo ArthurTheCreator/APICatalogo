@@ -64,10 +64,10 @@ namespace APICatalogo.Controllers
         [HttpPost]
         public ActionResult Post(Produto produto)
         {
-            if (produto == null)
-            {
-                return BadRequest();
-            }
+            //if (produto == null)
+            //{
+            //    return BadRequest();
+            //}
             _context.Produtos.Add(produto);
             _context.SaveChanges();
             return new CreatedAtRouteResult("ObterProduto",
