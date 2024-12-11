@@ -1,6 +1,8 @@
-﻿using APICatalogo.Context;
+﻿using APICatalogo.Arguments.Categorias;
+using APICatalogo.Context;
 using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Repositories.Repositories;
 
@@ -20,18 +22,37 @@ public class CategoriasRepository : ICategoriasRepository
     {
         return _context.Categorias.Find(id);
     }
-    public OutputCategoria Create(Categoria categoria)
+    public Categoria Create(Categoria categoria)
     {
-        return
+        if (categoria is null)
+        {
+            throw new ArgumentException(nameof(categoria));
+        }
+        _context.Categorias.Add(categoria);
+        _context.SaveChanges();
+        return categoria;
     }
 
     public Categoria Update(Categoria categoria)
     {
-        throw new NotImplementedException();
+        if (categoria is null)
+        {
+            throw new ArgumentException(nameof(categoria));
+        }
+        _context.Entry(categoria).State = EntityState.Modified;
+        _context.SaveChanges();
+        return categoria;
     }
 
     public Categoria Delete(int id)
     {
-        throw new NotImplementedException();
+        var categoriaDeletada = _context.Categorias.Find(id);
+        if (categoriaDeletada is null)
+        {
+            throw new ArgumentException($" >>> NÃO foi encontrada nenhuma categoria com id igual a {id} <<<");
+        }
+        _context.Categorias.Remove(categoriaDeletada);
+        _context.SaveChanges();
+        return categoriaDeletada;
     }
 }
