@@ -1,4 +1,5 @@
 ﻿using APICatalogo.Context;
+using APICatalogo.Filters;
 using APICatalogo.Models;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ namespace APICatalogo.Controllers;
 public class CategoriasController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ILogger _logger;
 
     public CategoriasController(AppDbContext context)
     {
@@ -29,18 +31,36 @@ public class CategoriasController : ControllerBase
     {
         return meuServico.Saudacao(nome);
     }
-    //Retornando Todas as categorias
-    [HttpGet]
-    public ActionResult<IEnumerable<Categoria>> Get()
-    {
-        var categorias = _context.Categorias.ToList();
-        if (categorias is null)
-        {
-            return NotFound(" >> Categorias Não Encontradas <<");
-        }
 
-        return Ok(categorias);
+    [HttpGet]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
+    public async Task<ActionResult<IEnumerable<Categoria>>> Get()
+    {
+        try
+        {
+            return await _context.Categorias.AsNoTracking().ToListAsync();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, " >>> Ocorreu um ERRO ao tratar a solicitação. <<<");
+        }
     }
+
+
+
+
+    //Retornando Todas as categorias
+    //[HttpGet]
+    //public ActionResult<IEnumerable<Categoria>> Get()
+    //{
+    //    var categorias = _context.Categorias.ToList();
+    //    if (categorias is null)
+    //    {
+    //        return NotFound(" >> Categorias Não Encontradas <<");
+    //    }
+
+    //    return Ok(categorias);
+    //}
 
     // Retornanndo com Id
     [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")] //Resttrições -> maior que zero
