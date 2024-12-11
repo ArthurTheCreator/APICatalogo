@@ -18,7 +18,7 @@ public class CategoriasRepository : ICategoriasRepository
     {
         return _context.Categorias.ToList();
     }
-    public Categoria GetCategoria(int id)
+    public Categoria GetCategoriaId(int id)
     {
         return _context.Categorias.Find(id);
     }
@@ -54,5 +54,15 @@ public class CategoriasRepository : ICategoriasRepository
         _context.Categorias.Remove(categoriaDeletada);
         _context.SaveChanges();
         return categoriaDeletada;
+    }
+
+    public List<Categoria> GetCategoriaEProdutos()
+    {
+        return _context.Categorias.Include(p => p.Produtos).ToList();
+    }
+
+    public List<Categoria> GetCategoriasProdutos(int id)
+    {
+        return _context.Categorias.Include(p => p.Produtos).Where(p => p.CategoriaId == id).ToList();
     }
 }

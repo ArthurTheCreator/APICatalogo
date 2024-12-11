@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace APICatalogo.Models;
 
@@ -24,5 +25,13 @@ public class Categoria
     [StringLength(312)]
     public string ImagemUrl { get; set; }
 
-    public ICollection<Produto>Produtos { get; set; } // Relacionando -> Categoria Contém uma coleção de produtos
+    [JsonIgnore]
+    public ICollection<Produto>?Produtos { get; set; } // Relacionando -> Categoria Contém uma coleção de produtos
+
+    public Categoria(string? nome, string imagemUrl, ICollection<Produto>? produtos)
+    {
+        Nome = nome;
+        ImagemUrl = imagemUrl;
+        Produtos = produtos;
+    }
 }

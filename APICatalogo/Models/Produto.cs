@@ -50,5 +50,15 @@ namespace APICatalogo.Models
                 }
             }
         }
+
+        public Produto(string nome, string descricao, decimal preco, string imagemUrl, float estoque, int categoriaId)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Preco = preco;
+            ImagemUrl = imagemUrl;
+            Estoque = estoque;
+            CategoriaId = categoriaId;
+        }
     }
 }
