@@ -20,30 +20,29 @@ public class CategoriasController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("UsandoFromServices/{nome}")]
-    public ActionResult<string> GetSaudacoesFromServices([FromServices] IMeuServico meuServico, string nome)
-    {
-        return meuServico.Saudacao(nome);
-    }
+    //[HttpGet("UsandoFromServices/{nome}")]
+    //public ActionResult<string> GetSaudacoesFromServices([FromServices] IMeuServico meuServico, string nome)
+    //{
+    //    return meuServico.Saudacao(nome);
+    //}
 
-    [HttpGet("{nome}")]
-    public ActionResult<string> GetSaudacoesSemFromServices( IMeuServico meuServico, string nome)
-    {
-        return meuServico.Saudacao(nome);
-    }
+    //[HttpGet("{nome}")]
+    //public ActionResult<string> GetSaudacoesSemFromServices( IMeuServico meuServico, string nome)
+    //{
+    //    return meuServico.Saudacao(nome);
+    //}
 
     [HttpGet]
     [ServiceFilter(typeof(ApiLoggingFilter))]
     public async Task<ActionResult<IEnumerable<Categoria>>> Get()
     {
-        try
+        var categoria = _context.Categorias.AsNoTracking().ToListAsync();
+        if (categoria is null)
         {
-            return await _context.Categorias.AsNoTracking().ToListAsync();
+            _logger.LogWarning($"Categoria não encontrada...");
+            return NotFound($" >>> Categorias Não encotradas <<<");
         }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, " >>> Ocorreu um ERRO ao tratar a solicitação. <<<");
-        }
+        return await categoria;
     }
 
 
@@ -69,7 +68,8 @@ public class CategoriasController : ControllerBase
         var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
         if (categoria is null)
         {
-            return NotFound(" >> Categoria Não Encontrada <<");
+            _logger.LogWarning($"Categoria com id: {id} não encontrada...");
+            return NotFound($" >>> Categorias Não encotradas <<<");
         }
         return Ok(categoria);
     }
@@ -77,9 +77,16 @@ public class CategoriasController : ControllerBase
 
     // Mostrar tudo
     [HttpGet("Categorias")]
-    public ActionResult<IEnumerable<Categoria>> GetCategiruasProdutos()
+    public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
     {
-        return _context.Categorias.Include(p => p.Produtos).ToList();
+        var categoriasprod = _context.Categorias.Include(p => p.Produtos).ToList();
+        if (categoriasprod is null)
+        {
+            _logger.LogWarning($"Categorias e produtos não encontrados...");
+            return NotFound($" >>> Categorias Não encotradas <<<");
+
+        }
+        return categoriasprod;
     }
     
 
