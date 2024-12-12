@@ -104,10 +104,13 @@ public class CategoriasController : ControllerBase
 
     [HttpDelete("{id:int:min(1)}")]
     public ActionResult Delete(int id)
-    {
-
+    { 
         var catDel = _repository.Delete(id);
-        return Ok(catDel);
+        if (catDel)
+        {
+            return Ok(" >>> Categoria Deletada Com SUCESSO <<<");
+        }
+        return NotFound(" >>> Categoria NÃO encontrada ou ja deletada <<<");
     }
 }
 

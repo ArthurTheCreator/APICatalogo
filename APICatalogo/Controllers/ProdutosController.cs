@@ -90,11 +90,11 @@ namespace APICatalogo.Controllers
         public ActionResult Delete(int id)
         {
             var produtoDel = _repository.Delete(id);
-            if(produtoDel)
+            if(produtoDel = false)
             {
                 return BadRequest(">> Produto não encontrado - Ou já excluido <<");
             }
-            return Ok(produtoDel);
+            return Ok(" >>> Produto Deletado Com SUCESSO <<<");
         }
     }
 }
