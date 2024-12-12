@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Arguments.Categorias;
 using APICatalogo.Context;
+using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Filters;
 using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
@@ -25,15 +26,15 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Categoria>> Get()
+    public ActionResult<List<OutputCategoria>> Get()
     {
         var categorias = _unitOfWorkrepository.CategoriasRepository.GetAll();
-        return Ok(categorias);
+        return Ok(categorias.ToOutputCategoriaList());
     }
 
     // Retornanndo com Id
     [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")] //Resttrições -> maior que zero
-    public ActionResult<Categoria> Get(int id)
+    public ActionResult<OutputCategoria> Get(int id)
     {
         var categoria = _unitOfWorkrepository.CategoriasRepository.Get(c => c.CategoriaId == id);
         if (categoria is null)
@@ -41,13 +42,13 @@ public class CategoriasController : ControllerBase
             _logger.LogWarning($"Categoria com id: {id} não encontrada...");
             return NotFound($" >>> Categorias Não encotradas <<<");
         }
-        return Ok(categoria);
+        return Ok(categoria.ToOuputCategoria());
     }
 
 
     // Mostrar tudo
-    [HttpGet("Categorias")]
-    public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+    [HttpGet("CategoriaESeusProdutos")]
+    public ActionResult<List<OutputCategoria>> GetCategoriasProdutos()
     {
         var categoriasprod = _unitOfWorkrepository.CategoriasRepository.GetCategoriaEProdutos();
         if (categoriasprod is null)
@@ -56,13 +57,13 @@ public class CategoriasController : ControllerBase
             return NotFound($" >>> Categorias Não encotradas <<<");
 
         }
-        return categoriasprod;
+        return Ok(categoriasprod.ToOutputCategoriaList());
     }
 
 
     // Mostrar tudo por id
-    [HttpGet("produtos{id:int:min(1)}")]
-    public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int id)
+    [HttpGet("Produtos{id:int:min(1)}")]
+    public ActionResult<List<OutputCategoria>> GetCategoriasProdutos(int id)
     {
         var catEProdutos = _unitOfWorkrepository.CategoriasRepository.GetCategoriasProdutos(id);
         if (catEProdutos is null)
@@ -70,15 +71,15 @@ public class CategoriasController : ControllerBase
             _logger.LogWarning($"Categorias e produtos não encontrados...");
             return NotFound($" >>> Categorias Não encotradas <<<");
         }
-        return catEProdutos;
+        return Ok(catEProdutos.ToOutputCategoriaList());
     }
 
 
     // criando
     [HttpPost]
-    public ActionResult Post(InputCreateCategoria categoria)
+    public ActionResult<OutputCategoria> Post(InputCreateCategoria categoria)
     {
-        var categoriaCriada = _unitOfWorkrepository.CategoriasRepository.Create(new Categoria(categoria.Nome, categoria.ImagemUrl, null));
+        var categoriaCriada = _unitOfWorkrepository.CategoriasRepository.Create(categoria.ToCategoria());
         _unitOfWorkrepository.Commit();
         if (categoria is null)
         {
@@ -88,19 +89,20 @@ public class CategoriasController : ControllerBase
         _unitOfWorkrepository.CategoriasRepository.Create(categoriaCriada);
 
         return new CreatedAtRouteResult("ObterCategoria",
-            new { id = categoriaCriada.CategoriaId }, new OutputCategoria(categoriaCriada.CategoriaId, categoriaCriada.ImagemUrl, categoriaCriada.Nome));
+            categoriaCriada.ToOuputCategoria());
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult Put(int id, Categoria categoria)
+    public ActionResult<OutputCategoria> Put(int id, InputUpdateCategoria categoria)
     {
-        if (id != categoria.CategoriaId)
+        if (id != categoria.CategoriaID)
         {
             return BadRequest(" >> Categoria Não Encontrada <<");
         }
-        _unitOfWorkrepository.CategoriasRepository.Update(categoria);
+        var categoriaUpdate = categoria.ToCategoria();
+        _unitOfWorkrepository.CategoriasRepository.Update(categoriaUpdate);
         _unitOfWorkrepository.Commit();
-        return Ok(categoria);
+        return Ok(categoriaUpdate.ToOuputCategoria());
     }
 
     [HttpDelete("{id:int:min(1)}")]

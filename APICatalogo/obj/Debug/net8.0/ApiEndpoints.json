@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[APICatalogo.Models.Categoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[APICatalogo.Arguments.Categorias.OutputCategoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -33,7 +33,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "APICatalogo.Arguments.Categorias.OutputCategoria",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "APICatalogo.Controllers.CategoriasController",
@@ -51,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "APICatalogo.Models.Categoria",
+        "Type": "APICatalogo.Arguments.Categorias.OutputCategoria",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -77,11 +87,21 @@
       },
       {
         "Name": "categoria",
-        "Type": "APICatalogo.Models.Categoria",
+        "Type": "APICatalogo.Arguments.Categorias.InputUpdateCategoria",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "APICatalogo.Arguments.Categorias.OutputCategoria",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "APICatalogo.Controllers.CategoriasController",
@@ -102,14 +122,14 @@
   {
     "ContainingType": "APICatalogo.Controllers.CategoriasController",
     "Method": "GetCategoriasProdutos",
-    "RelativePath": "Categorias/Categorias",
+    "RelativePath": "Categorias/CategoriaESeusProdutos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalogo.Models.Categoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[APICatalogo.Arguments.Categorias.OutputCategoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -122,7 +142,7 @@
   {
     "ContainingType": "APICatalogo.Controllers.CategoriasController",
     "Method": "GetCategoriasProdutos",
-    "RelativePath": "Categorias/produtos{id}",
+    "RelativePath": "Categorias/Produtos{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -135,7 +155,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalogo.Models.Categoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[APICatalogo.Arguments.Categorias.OutputCategoria, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -155,7 +175,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalogo.Models.Produto, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[APICatalogo.Arguments.Produtos.OutputProduto, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -175,7 +195,7 @@
     "Parameters": [
       {
         "Name": "produto",
-        "Type": "APICatalogo.Models.Produto",
+        "Type": "APICatalogo.Arguments.Produtos.InputCreateProduto",
         "IsRequired": true
       }
     ],
@@ -213,7 +233,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "APICatalogo.Models.Produto",
+        "Type": "APICatalogo.Arguments.Produtos.OutputProduto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -239,10 +259,20 @@
       },
       {
         "Name": "produto",
-        "Type": "APICatalogo.Models.Produto",
+        "Type": "APICatalogo.Arguments.Produtos.InputUpdateProduto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "APICatalogo.Arguments.Produtos.OutputProduto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

@@ -1,4 +1,6 @@
-﻿using APICatalogo.Context;
+﻿using APICatalogo.Arguments.Produtos;
+using APICatalogo.Context;
+using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
@@ -22,20 +24,20 @@ namespace APICatalogo.Controllers
 
         //Retornando todos os produtos
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get() //Criando a lista de produtos para serem retornados
+        public ActionResult<List<OutputProduto>> Get() //Criando a lista de produtos para serem retornados
         {
             var produtos = _unitOfWorkRepository.ProdutosRepository.GetAll();
             if (produtos is null)
             {
                 return NotFound(">> Produtos não encontrados <<");
             }
-            return produtos;
+            return produtos.ToOutputProdutoList();
         }
 
 
         //Retornando produto por Id
         [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        public ActionResult<OutputProduto> Get(int id)
         {
             var produto = _unitOfWorkRepository.ProdutosRepository.Get(c => c.CategoriaId == id);
 
@@ -43,7 +45,7 @@ namespace APICatalogo.Controllers
             {
                 return NotFound(">> Produto Inexistente ou não Encontrado <<");
             }
-            return produto;
+            return Ok(produto.ToOuputProduto());
 
         }
 
@@ -63,29 +65,29 @@ namespace APICatalogo.Controllers
 
         //Post
         [HttpPost]
-        public ActionResult Post(Produto produto)
+        public ActionResult Post(InputCreateProduto produto)
         {
             if (produto == null)
             {
                 return BadRequest();
             }
-            var ProdutoCriado = _unitOfWorkRepository.ProdutosRepository.Create(produto);
+            var ProdutoCriado = _unitOfWorkRepository.ProdutosRepository.Create(produto.ToProduto());
             _unitOfWorkRepository.Commit();
             return new CreatedAtRouteResult("ObterProduto",
-                new { id = ProdutoCriado.ProdutoId }, ProdutoCriado);
+                ProdutoCriado.ToOuputProduto());
         }
 
         [HttpPut("{id:int:min(1)}")] //Altera
-        public ActionResult Put(int id, Produto produto)
+        public ActionResult<OutputProduto> Put(int id, InputUpdateProduto produto)
         {
             if(id != produto.ProdutoId)
             {
                 return BadRequest(">> Produto não encontrado <<");
             }
-
-            var produtoUpdate = _unitOfWorkRepository.ProdutosRepository.Update(produto);
+            var update = produto.ToProduto();
+            var produtoUpdate = _unitOfWorkRepository.ProdutosRepository.Update(update);
             _unitOfWorkRepository.Commit();
-            return Ok(produtoUpdate);
+            return Ok(produtoUpdate.ToOuputProduto());
         }
 
         [HttpDelete]
