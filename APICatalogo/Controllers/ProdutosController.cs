@@ -11,9 +11,9 @@ namespace APICatalogo.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly IProdutosRepository _repository; //Contexto com o banco de dados
+        private readonly IRepository<Produto> _repository; //Contexto com o banco de dados
 
-        public ProdutosController(IProdutosRepository repository)
+        public ProdutosController(IRepository<Produto> repository)
         {
             _repository = repository;
         }
@@ -23,7 +23,7 @@ namespace APICatalogo.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get() //Criando a lista de produtos para serem retornados
         {
-            var produtos = _repository.GetProdutos();
+            var produtos = _repository.GetAll();
             if (produtos is null)
             {
                 return NotFound(">> Produtos não encontrados <<");
@@ -36,7 +36,7 @@ namespace APICatalogo.Controllers
         [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
-            var produto = _repository.GetProduto(id);
+            var produto = _repository.Get(c => c.CategoriaId == id);
 
             if (produto == null)
             {
@@ -64,10 +64,10 @@ namespace APICatalogo.Controllers
         [HttpPost]
         public ActionResult Post(Produto produto)
         {
-            //if (produto == null)
-            //{
-            //    return BadRequest();
-            //}
+            if (produto == null)
+            {
+                return BadRequest();
+            }
             var ProdutoCriado = _repository.Create(produto);
             return new CreatedAtRouteResult("ObterProduto",
                 new { id = ProdutoCriado.ProdutoId }, ProdutoCriado);
@@ -90,7 +90,7 @@ namespace APICatalogo.Controllers
         public ActionResult Delete(int id)
         {
             var produtoDel = _repository.Delete(id);
-            if(produtoDel is null)
+            if(produtoDel)
             {
                 return BadRequest(">> Produto não encontrado - Ou já excluido <<");
             }

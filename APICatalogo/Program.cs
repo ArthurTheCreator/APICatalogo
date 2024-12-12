@@ -34,14 +34,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
             ServerVersion.AutoDetect(mySqkConnection)));
 
 
-
-
 builder.Services.AddTransient<IMeuServico, MeuServico>();
-
 builder.Services.AddScoped<ApiLoggingFilter>();
-
 builder.Services.AddScoped<ICategoriasRepository, CategoriasRepository>();
 builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {

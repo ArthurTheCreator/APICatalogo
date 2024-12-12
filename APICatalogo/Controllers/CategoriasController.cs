@@ -14,22 +14,21 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class CategoriasController : ControllerBase
 {
-    private readonly ICategoriasRepository _repository;
-    private readonly ILogger _logger;
+    private readonly IRepository<Categoria> _repository;
+    private readonly ICategoriasRepository _repositoryCategoria;
+    private readonly ILogger<CategoriasController> _logger;
 
-    public CategoriasController(ICategoriasRepository repository, ILogger<CategoriasController> logger)
+    public CategoriasController(IRepository<Categoria> repository, ILogger<CategoriasController> logger, ICategoriasRepository repositoryCategoria)
     {
         _repository = repository;
+        _repositoryCategoria = repositoryCategoria;
         _logger = logger;
     }
-
-
 
     [HttpGet]
     public ActionResult<List<Categoria>> Get()
     {
-        var categorias = _repository.GetCategorias();
-
+        var categorias = _repository.GetAll();
         return Ok(categorias);
     }
 
@@ -37,7 +36,7 @@ public class CategoriasController : ControllerBase
     [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")] //Resttrições -> maior que zero
     public ActionResult<Categoria> Get(int id)
     {
-        var categoria = _repository.GetCategoriaId(id);
+        var categoria = _repository.Get(c => c.CategoriaId == id);
         if (categoria is null)
         {
             _logger.LogWarning($"Categoria com id: {id} não encontrada...");
@@ -51,7 +50,7 @@ public class CategoriasController : ControllerBase
     [HttpGet("Categorias")]
     public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
     {
-        var categoriasprod = _repository.GetCategoriaEProdutos();
+        var categoriasprod = _repositoryCategoria.GetCategoriaEProdutos();
         if (categoriasprod is null)
         {
             _logger.LogWarning($"Categorias e produtos não encontrados...");
@@ -60,13 +59,13 @@ public class CategoriasController : ControllerBase
         }
         return categoriasprod;
     }
-    
+
 
     // Mostrar tudo por id
     [HttpGet("produtos{id:int:min(1)}")]
     public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int id)
     {
-        var catEProdutos = _repository.GetCategoriasProdutos(id);
+        var catEProdutos = _repositoryCategoria.GetCategoriasProdutos(id);
         if (catEProdutos is null)
         {
             _logger.LogWarning($"Categorias e produtos não encontrados...");
@@ -106,47 +105,47 @@ public class CategoriasController : ControllerBase
     [HttpDelete("{id:int:min(1)}")]
     public ActionResult Delete(int id)
     {
-        
+
         var catDel = _repository.Delete(id);
         return Ok(catDel);
     }
 }
 
-    //[HttpGet("UsandoFromServices/{nome}")]
-    //public ActionResult<string> GetSaudacoesFromServices([FromServices] IMeuServico meuServico, string nome)
-    //{
-    //    return meuServico.Saudacao(nome);
-    //}
+//[HttpGet("UsandoFromServices/{nome}")]
+//public ActionResult<string> GetSaudacoesFromServices([FromServices] IMeuServico meuServico, string nome)
+//{
+//    return meuServico.Saudacao(nome);
+//}
 
-    //[HttpGet("{nome}")]
-    //public ActionResult<string> GetSaudacoesSemFromServices( IMeuServico meuServico, string nome)
-    //{
-    //    return meuServico.Saudacao(nome);
-    //}
+//[HttpGet("{nome}")]
+//public ActionResult<string> GetSaudacoesSemFromServices( IMeuServico meuServico, string nome)
+//{
+//    return meuServico.Saudacao(nome);
+//}
 
-    //[HttpGet]
-    //[ServiceFilter(typeof(ApiLoggingFilter))]
-    //public async Task<ActionResult<IEnumerable<Categoria>>> Get()
-    //{
-    //    var categoria = _repository.Categorias.AsNoTracking().ToListAsync();
-    //    if (categoria is null)
-    //    {
-    //        _logger.LogWarning($"Categoria não encontrada...");
-    //        return NotFound($" >>> Categorias Não encotradas <<<");
-    //    }
-    //    return await categoria;
-    //}
+//[HttpGet]
+//[ServiceFilter(typeof(ApiLoggingFilter))]
+//public async Task<ActionResult<IEnumerable<Categoria>>> Get()
+//{
+//    var categoria = _repository.Categorias.AsNoTracking().ToListAsync();
+//    if (categoria is null)
+//    {
+//        _logger.LogWarning($"Categoria não encontrada...");
+//        return NotFound($" >>> Categorias Não encotradas <<<");
+//    }
+//    return await categoria;
+//}
 
 
-    //Retornando Todas as categorias
-    //[HttpGet]
-    //public ActionResult<IEnumerable<Categoria>> Get()
-    //{
-    //    var categorias = _repository.Categorias.ToList();
-    //    if (categorias is null)
-    //    {
-    //        return NotFound(" >> Categorias Não Encontradas <<");
-    //    }
+//Retornando Todas as categorias
+//[HttpGet]
+//public ActionResult<IEnumerable<Categoria>> Get()
+//{
+//    var categorias = _repository.Categorias.ToList();
+//    if (categorias is null)
+//    {
+//        return NotFound(" >> Categorias Não Encontradas <<");
+//    }
 
-    //    return Ok(categorias);
-    //}
+//    return Ok(categorias);
+//}
