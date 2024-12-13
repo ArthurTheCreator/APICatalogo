@@ -2,12 +2,14 @@
 using APICatalogo.Context;
 using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace APICatalogo.Controllers
 {
@@ -35,6 +37,23 @@ namespace APICatalogo.Controllers
             return produtos.ToOutputProdutoList();
         }
 
+        [HttpGet("Pagination")]
+        public ActionResult<List<OutputProduto>> Get([FromQuery] ProdutosParameters produtosParameters)
+        {
+            var produtos = _unitOfWorkRepository.ProdutosRepository.GetProdutos(produtosParameters);
+
+            var metadata = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+            Response.Headers.Append("X-Paginations", JsonConvert.SerializeObject(metadata));
+            return Ok(produtos.ToOutputProdutoList());
+        }
 
         //Retornando produto por Id
         [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
