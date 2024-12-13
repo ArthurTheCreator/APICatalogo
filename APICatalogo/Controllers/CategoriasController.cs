@@ -1,8 +1,10 @@
 ﻿using APICatalogo.Arguments.Categorias;
+using APICatalogo.Arguments.Produtos;
 using APICatalogo.Context;
 using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Filters;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
 using APICatalogo.Services;

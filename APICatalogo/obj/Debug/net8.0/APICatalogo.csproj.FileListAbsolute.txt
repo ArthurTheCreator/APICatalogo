@@ -126,7 +126,6 @@ C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Mic
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\NuGet.Common.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\NuGet.Configuration.dll
@@ -138,11 +137,8 @@ C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\NuG
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\NuGet.Protocol.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\NuGet.Versioning.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Security.Permissions.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Windows.Extensions.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\ar\Humanizer.resources.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -230,12 +226,13 @@ C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\ru\
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\obj\Debug\net8.0\APICatalogo.sourcelink.json
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Formats.Asn1.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.Text.Json.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll

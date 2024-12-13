@@ -2,6 +2,7 @@
 using APICatalogo.Context;
 using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,12 @@ namespace APICatalogo.Controllers
             return produtos.ToOutputProdutoList();
         }
 
+        [HttpGet("Pagination")]
+        public ActionResult<List<OutputProduto>> Get([FromQuery] ProdutosParameters produtosParameters)
+        {
+            var produtos = _unitOfWorkRepository.ProdutosRepository.GetProdutos(produtosParameters);
+            return Ok(produtos.ToOutputProdutoList());
+        }
 
         //Retornando produto por Id
         [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
