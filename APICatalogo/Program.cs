@@ -1,4 +1,5 @@
 using APICatalogo.Context;
+using APICatalogo.DTO.DTOMapping;
 using APICatalogo.Extensions;
 using APICatalogo.Filters;
 using APICatalogo.Logging;
@@ -21,7 +22,7 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ApiExceptionFilter));
 })
     .AddJsonOptions(options =>
-    options.JsonSerializerOptions
+     options.JsonSerializerOptions
         .ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
@@ -46,6 +47,8 @@ builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderCon
 {
     LogLevel = LogLevel.Information
 }));
+
+//builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 var app = builder.Build();
 

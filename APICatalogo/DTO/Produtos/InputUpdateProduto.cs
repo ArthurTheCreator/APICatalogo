@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APICatalogo.Arguments.Produtos
 {
-    public class InputUpdateProduto(int id, string nome, string descricao, decimal preco, string imagemUrl, float estoque, int categoriaId)
+    public class InputUpdateProduto(int? id, string nome, string descricao, decimal preco, string imagemUrl, float estoque, int categoriaId)
     {
-        public int ProdutoId { get; private set; } = id;
+        public int? ProdutoId { get; private set; } = id;
         public string Nome { get; private set; } = nome;
         public string Descricao { get; private set; } = descricao;
         public decimal Preco { get; private set; } = preco;

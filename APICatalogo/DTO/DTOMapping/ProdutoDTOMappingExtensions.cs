@@ -26,4 +26,9 @@ public static class ProdutoDTOMappingExtension
         if (produto is null) return null;
         return produto.Select(produto => new OutputProduto(produto.ProdutoId, produto.Nome, produto.Descricao, produto.Preco, produto.ImagemUrl, produto.Estoque, produto.CategoriaId)).ToList();
     }
+    public static InputUpdateProduto? ToUpdateProduto(this Produto produto)
+    {
+        if (produto is null) return null;
+        return new InputUpdateProduto(null, produto.Nome, produto.Descricao, produto.Preco, produto.ImagemUrl, produto.Estoque, produto.CategoriaId);
+    }
 }

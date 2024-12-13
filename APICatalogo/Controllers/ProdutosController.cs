@@ -5,6 +5,7 @@ using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,19 +50,6 @@ namespace APICatalogo.Controllers
 
         }
 
-        //Retornando produto por Id da categoria
-        //[HttpGet("{Id_Categoria:int}")]
-        //public ActionResult<IEnumerable<Produto>> Id(int Id_Categoria)
-        //{
-        //    var produtocat = _unitOfWorkRepository.ProdutosRepository.Produtos.Where(p => p.CategoriaId == Id_Categoria).ToList();
-
-        //    if (produtocat is null)
-        //    {
-        //        return NotFound(">> Produtos dessa categoria não foram encontrados <<");
-        //    }
-        //    return produtocat;
-        //}
-
 
         //Post
         [HttpPost]
@@ -90,6 +78,19 @@ namespace APICatalogo.Controllers
             return Ok(produtoUpdate.ToOuputProduto());
         }
 
+        [HttpPatch("{id}/UpdatePartial")]
+        public ActionResult<OutputProduto>  Patch(int id,
+            JsonPatchDocument<InputUpdateProduto> patch)
+        {
+            if (patch is null || id <= 0) return BadRequest();
+            var produto = _unitOfWorkRepository.ProdutosRepository.Get(c => c.ProdutoId == id);
+            if (produto is null) return NotFound();
+
+            _unitOfWorkRepository.ProdutosRepository.Update(produto);
+            _unitOfWorkRepository.Commit();
+            return produto.ToOuputProduto();
+        }
+
         [HttpDelete]
         public ActionResult Delete(int id)
         {
@@ -103,3 +104,15 @@ namespace APICatalogo.Controllers
         }
     }
 }
+        //Retornando produto por Id da categoria
+        //[HttpGet("{Id_Categoria:int}")]
+        //public ActionResult<IEnumerable<Produto>> Id(int Id_Categoria)
+        //{
+        //    var produtocat = _unitOfWorkRepository.ProdutosRepository.Produtos.Where(p => p.CategoriaId == Id_Categoria).ToList();
+
+        //    if (produtocat is null)
+        //    {
+        //        return NotFound(">> Produtos dessa categoria não foram encontrados <<");
+        //    }
+        //    return produtocat;
+        //}

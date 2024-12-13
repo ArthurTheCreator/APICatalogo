@@ -274,5 +274,36 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "APICatalogo.Controllers.ProdutosController",
+    "Method": "Patch",
+    "RelativePath": "Produtos/{id}/UpdatePartial",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "patch",
+        "Type": "Microsoft.AspNetCore.JsonPatch.JsonPatchDocument\u00601[[APICatalogo.Arguments.Produtos.InputUpdateProduto, APICatalogo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "APICatalogo.Arguments.Produtos.OutputProduto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
