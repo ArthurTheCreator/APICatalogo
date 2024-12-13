@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace APICatalogo.Controllers
 {
@@ -40,6 +41,17 @@ namespace APICatalogo.Controllers
         public ActionResult<List<OutputProduto>> Get([FromQuery] ProdutosParameters produtosParameters)
         {
             var produtos = _unitOfWorkRepository.ProdutosRepository.GetProdutos(produtosParameters);
+
+            var metadata = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+            Response.Headers.Append("X-Paginations", JsonConvert.SerializeObject(metadata));
             return Ok(produtos.ToOutputProdutoList());
         }
 

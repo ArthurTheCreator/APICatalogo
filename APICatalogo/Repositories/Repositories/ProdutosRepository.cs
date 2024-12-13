@@ -1,6 +1,7 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
 using APICatalogo.Pagination;
+using APICatalogo.Pagination.Filter;
 using APICatalogo.Repositories.Interfaces;
 
 namespace APICatalogo.Repositories.Repositories;
@@ -11,11 +12,34 @@ public class ProdutosRepository : Repository<Produto>, IProdutosRepository
     {
     }
 
-    public List<Produto> GetProdutos(ProdutosParameters produtosParams)
+    public PagedList<Produto> GetProdutos(ProdutosParameters produtosParams)
     {
-        return GetAll()
-            .OrderBy(p => p.Nome)
-            .Skip((produtosParams.PageNumber - 1) * produtosParams.PageSize)
-            .Take(produtosParams.PageSize).ToList(); 
+        var produtos = GetAll()
+            .OrderBy(p => p.Nome).AsQueryable();
+        var produtosORdenados = PagedList<Produto>.ToPagedList(produtos, produtosParams.PageNumber, produtosParams.PageSize);
+        return produtosORdenados;
+            
+    }
+
+    public PagedList<Produto> GetProdutosFiltroPreco(ProdutosFIltroPreco produtosFIltroPreco)
+    {
+        var produtos = GetAll().AsQueryable();
+        if (produtosFIltroPreco.Preco.HasValue && !string.IsNullOrEmpty(produtosFIltroPreco.PrecoCriterio))
+        {
+            if (produtosFIltroPreco.PrecoCriterio.Equals("maior", StringComparison.OrdinalIgnoreCase))
+            {
+                produtos = produtos.Where(p => p.Preco > produtosFIltroPreco.Preco.Value).OrderBy(p => p.Preco);
+            }
+            else if (produtosFIltroPreco.PrecoCriterio.Equals("menor", StringComparison.OrdinalIgnoreCase))
+            {
+                produtos = produtos.Where(p => p.Preco > produtosFIltroPreco.Preco.Value).OrderBy(p => p.Preco);
+            }
+            else if (produtosFIltroPreco.PrecoCriterio.Equals("igual", StringComparison.OrdinalIgnoreCase))
+            {
+                produtos = produtos.Where(p => p.Preco > produtosFIltroPreco.Preco.Value).OrderBy(p => p.Preco);
+            }    
+        }
+        var produtosFiltrados = PagedList<Produto>.ToPagedList(produtos, produtosFIltroPreco.PageNumber, produtosFIltroPreco.PageSize);
+        return produtosFiltrados;
     }
 }
