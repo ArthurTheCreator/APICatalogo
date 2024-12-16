@@ -4,6 +4,6 @@ namespace APICatalogo.Repositories.Interfaces;
 
 public interface ICategoriasRepository : IRepository<Categoria>
 {
-    List<Categoria> GetCategoriaEProdutos();
-    List<Categoria> GetCategoriasProdutos(int id);
+    Task<List<Categoria>> GetCategoriaEProdutos();
+    Task<List<Categoria>> GetCategoriasProdutos(int id);
 }

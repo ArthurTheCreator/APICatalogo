@@ -27,9 +27,9 @@ namespace APICatalogo.Controllers
 
         //Retornando todos os produtos
         [HttpGet]
-        public ActionResult<List<OutputProduto>> Get() //Criando a lista de produtos para serem retornados
+        public async Task<ActionResult<List<OutputProduto>>> Get() //Criando a lista de produtos para serem retornados
         {
-            var produtos = _unitOfWorkRepository.ProdutosRepository.GetAll();
+            var produtos = await _unitOfWorkRepository.ProdutosRepository.GetAll();
             if (produtos is null)
             {
                 return NotFound(">> Produtos não encontrados <<");
@@ -38,9 +38,9 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet("Pagination")]
-        public ActionResult<List<OutputProduto>> Get([FromQuery] ProdutosParameters produtosParameters)
+        public async Task<ActionResult<List<OutputProduto>>> Get([FromQuery] ProdutosParameters produtosParameters)
         {
-            var produtos = _unitOfWorkRepository.ProdutosRepository.GetProdutos(produtosParameters);
+            var produtos = await _unitOfWorkRepository.ProdutosRepository.GetProdutos(produtosParameters);
 
             var metadata = new
             {
@@ -57,9 +57,9 @@ namespace APICatalogo.Controllers
 
         //Retornando produto por Id
         [HttpGet("{id:int:min(1)}", Name="ObterProduto")]
-        public ActionResult<OutputProduto> Get(int id)
+        public async Task<ActionResult<OutputProduto>> Get(int id)
         {
-            var produto = _unitOfWorkRepository.ProdutosRepository.Get(c => c.CategoriaId == id);
+            var produto = await _unitOfWorkRepository.ProdutosRepository.Get(c => c.CategoriaId == id);
 
             if (produto == null)
             {
@@ -98,11 +98,11 @@ namespace APICatalogo.Controllers
         }
 
         [HttpPatch("{id}/UpdatePartial")]
-        public ActionResult<OutputProduto>  Patch(int id,
+        public async Task<ActionResult<OutputProduto>>  Patch(int id,
             JsonPatchDocument<InputUpdateProduto> patch)
         {
             if (patch is null || id <= 0) return BadRequest();
-            var produto = _unitOfWorkRepository.ProdutosRepository.Get(c => c.ProdutoId == id);
+            var produto = await _unitOfWorkRepository.ProdutosRepository.Get(c => c.ProdutoId == id);
             if (produto is null) return NotFound();
 
             _unitOfWorkRepository.ProdutosRepository.Update(produto);

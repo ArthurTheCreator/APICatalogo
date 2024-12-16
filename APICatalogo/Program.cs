@@ -7,6 +7,7 @@ using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.Repositories;
 using APICatalogo.Repositories.UnitOfWork;
 using APICatalogo.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -29,6 +30,10 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Beaer").AddJwtBearer();
+builder.Services.AddIdentity< IdentityUser, IdentityRole >().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 string mySqkConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>

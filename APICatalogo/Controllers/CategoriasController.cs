@@ -8,6 +8,7 @@ using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Repositories.UnitOfWork;
 using APICatalogo.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,17 +29,18 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<OutputCategoria>> Get()
+    [Authorize]
+    public async Task<ActionResult<List<OutputCategoria>>> Get()
     {
-        var categorias = _unitOfWorkrepository.CategoriasRepository.GetAll();
+        var categorias = await _unitOfWorkrepository.CategoriasRepository.GetAll();
         return Ok(categorias.ToOutputCategoriaList());
     }
 
     // Retornanndo com Id
     [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")] //Resttrições -> maior que zero
-    public ActionResult<OutputCategoria> Get(int id)
+    public async Task<ActionResult<OutputCategoria>> Get(int id)
     {
-        var categoria = _unitOfWorkrepository.CategoriasRepository.Get(c => c.CategoriaId == id);
+        var categoria = await _unitOfWorkrepository.CategoriasRepository.Get(c => c.CategoriaId == id);
         if (categoria is null)
         {
             _logger.LogWarning($"Categoria com id: {id} não encontrada...");
@@ -50,9 +52,9 @@ public class CategoriasController : ControllerBase
 
     // Mostrar tudo
     [HttpGet("CategoriaESeusProdutos")]
-    public ActionResult<List<OutputCategoria>> GetCategoriasProdutos()
+    public async Task<ActionResult<List<OutputCategoria>>> GetCategoriasProdutos()
     {
-        var categoriasprod = _unitOfWorkrepository.CategoriasRepository.GetCategoriaEProdutos();
+        var categoriasprod = await _unitOfWorkrepository.CategoriasRepository.GetCategoriaEProdutos();
         if (categoriasprod is null)
         {
             _logger.LogWarning($"Categorias e produtos não encontrados...");
@@ -65,9 +67,9 @@ public class CategoriasController : ControllerBase
 
     // Mostrar tudo por id
     [HttpGet("Produtos{id:int:min(1)}")]
-    public ActionResult<List<OutputCategoria>> GetCategoriasProdutos(int id)
+    public async Task<ActionResult<List<OutputCategoria>>> GetCategoriasProdutos(int id)
     {
-        var catEProdutos = _unitOfWorkrepository.CategoriasRepository.GetCategoriasProdutos(id);
+        var catEProdutos = await _unitOfWorkrepository.CategoriasRepository.GetCategoriasProdutos(id);
         if (catEProdutos is null)
         {
             _logger.LogWarning($"Categorias e produtos não encontrados...");

@@ -28,9 +28,9 @@ public class UnitOfWork : IUnitOfWork
             return _categoriaRepo = _categoriaRepo ?? new CategoriasRepository(_context);
         }
     }
-    public void Commit()
+    public async Task Commit()
     {
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
     public void Dispode()
     {

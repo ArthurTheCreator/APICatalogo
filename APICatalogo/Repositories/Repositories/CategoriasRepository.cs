@@ -12,13 +12,13 @@ public class CategoriasRepository : Repository<Categoria>, ICategoriasRepository
     {
         _context = context;
     }
-    public List<Categoria> GetCategoriaEProdutos()
+    public async Task<List<Categoria>> GetCategoriaEProdutos()
     {
-        return _context.Set<Categoria>().Include(p => p.Produtos).ToList() ;
+        return await _context.Set<Categoria>().Include(p => p.Produtos).ToListAsync() ;
     }
 
-    public List<Categoria> GetCategoriasProdutos(int id)
+    public  async Task<List<Categoria>> GetCategoriasProdutos(int id)
     {
-        return _context.Set<Categoria>().Include(p => p.Produtos).Where(p => p.CategoriaId == id).ToList();
+        return await _context.Set<Categoria>().Include(p => p.Produtos).Where(p => p.CategoriaId == id).ToListAsync();
     }
 }
