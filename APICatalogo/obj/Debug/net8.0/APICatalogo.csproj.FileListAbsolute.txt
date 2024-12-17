@@ -244,3 +244,4 @@ C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Mic
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\arthu_dzh116v\source\repos\APICatalogo\APICatalogo\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -1,6 +1,7 @@
 ﻿using APICatalogo.DTO.User;
 using APICatalogo.Models;
 using APICatalogo.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -137,5 +138,16 @@ public class AuthController : Controller
         });
     }
 
+    [Authorize]
+    [HttpPost]
+    [Route("revoke/{username}")]
+    public async Task<IActionResult> Revoke(string username)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        if (user is null) return BadRequest("Invalid user name");
+        user.RefreshToken = null;
+        await _userManager.UpdateAsync(user);
+        return NoContent();
 
+    }
 }
