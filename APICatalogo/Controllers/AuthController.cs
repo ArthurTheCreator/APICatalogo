@@ -54,7 +54,7 @@ public class AuthController : Controller
             await _userManager.UpdateAsync(user);
             return Ok(new
             {
-                Tonken = new JwtSecurityTokenHandler().WriteToken(token),
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = refreshToken,
                 Expiration = token.ValidTo
             });
