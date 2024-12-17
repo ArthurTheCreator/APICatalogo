@@ -130,6 +130,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthentication(); // Adiciona o middleware de autenticação
 app.UseAuthorization();
