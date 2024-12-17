@@ -32,6 +32,8 @@ builder.Services.AddControllers(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+var OrigensComAcessoPermitido = "_origensComAcessoPermitido";
+builder.Services.AddCors(options => options.AddPolicy(name: OrigensComAcessoPermitido, policy => { policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader(); }));
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -133,7 +135,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors();
+app.UseCors(OrigensComAcessoPermitido);
 
 app.UseAuthentication(); // Adiciona o middleware de autenticação
 app.UseAuthorization();
