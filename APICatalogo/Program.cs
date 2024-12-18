@@ -38,8 +38,14 @@ builder.Services.AddCors(options => options.AddPolicy(name: OrigensComAcessoPerm
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
-
+    //c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "APICatalogo",
+        Description = "Catálogo de Porudots e Categorias by ArthurTheCreator",
+        TermsOfService = new Uri("https://www.youtube.com/watch?v=XwAzVXBjvNo&themeRefresh=1")
+    });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",

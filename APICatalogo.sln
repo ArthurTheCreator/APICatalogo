@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APICatalogo", "APICatalogo\APICatalogo.csproj", "{F745E65E-C0C4-451F-83E4-2053AC8B5FB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCatalogoxUnitTest", "ApiCatalogoxUnitTest\ApiCatalogoxUnitTest.csproj", "{4D1D6E57-149E-4E7E-BF44-0894E1578E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F745E65E-C0C4-451F-83E4-2053AC8B5FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F745E65E-C0C4-451F-83E4-2053AC8B5FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F745E65E-C0C4-451F-83E4-2053AC8B5FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D1D6E57-149E-4E7E-BF44-0894E1578E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D1D6E57-149E-4E7E-BF44-0894E1578E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D1D6E57-149E-4E7E-BF44-0894E1578E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D1D6E57-149E-4E7E-BF44-0894E1578E10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

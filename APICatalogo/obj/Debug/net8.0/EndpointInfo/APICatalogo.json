@@ -1,7 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "apicatalogo",
+    "title": "APICatalogo",
+    "description": "Catálogo de Porudots e Categorias by ArthurTheCreator",
+    "termsOfService": "https://www.youtube.com/watch?v=XwAzVXBjvNo&themeRefresh=1",
     "version": "v1"
   },
   "paths": {
